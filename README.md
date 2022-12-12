@@ -1,8 +1,8 @@
 # Typescript Fundamentals
 
-A simple repo to practice the fundamentals of Typescript.
+A repository to practice the fundamentals of Typescript, React, and Jest.
 
-## Usage
+## Basics Usage
 
 Execute `tsc [insert typescript filename].ts -w` to watch and compile any typescript files
 
