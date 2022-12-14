@@ -1,5 +1,5 @@
 import React from "react";
-import { ConfromModalComponent } from "../../../src/components/spaces/ConfirmModalComponet";
+import { ConfirmModalComponent } from "../../../src/components/spaces/ConfirmModalComponent";
 import ReactDOM from "react-dom";
 import { fireEvent } from "@testing-library/react";
 
@@ -11,7 +11,11 @@ describe("Confirm modal test suite", () => {
     container = document.createElement("div");
     document.body.appendChild(container);
     ReactDOM.render(
-      <ConfromModalComponent close={closeMock} content={"Some content"} show={true} />,
+      <ConfromModalComponent
+        close={closeMock}
+        content={"Some content"}
+        show={true}
+      />,
       container
     );
   });
@@ -36,7 +40,11 @@ describe("Confirm modal test suite", () => {
     container = document.createElement("div");
     document.body.appendChild(container);
     ReactDOM.render(
-      <ConfromModalComponent close={closeMock} content={"Some content"} show={false} />,
+      <ConfromModalComponent
+        close={closeMock}
+        content={"Some content"}
+        show={false}
+      />,
       container
     );
   });

@@ -33,7 +33,7 @@ describe("Profile test suite", () => {
     ReactDOM.render(
       <Profile
         user={someUser}
-        authService={(authServiceMock as any) as AuthService}
+        authService={authServiceMock as any as AuthService}
       />,
       container
     );
@@ -58,7 +58,7 @@ describe("Profile test suite", () => {
       <StaticRouter>
         <Profile
           user={undefined}
-          authService={(authServiceMock as any) as AuthService}
+          authService={authServiceMock as any as AuthService}
         />
       </StaticRouter>,
       container
