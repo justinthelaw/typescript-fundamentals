@@ -1,5 +1,5 @@
 import * as ReactDOM from 'react-dom';
-import { Login } from '../../src/components/Login';
+import { Login } from '../../src/components/Auth/Login';
 import { fireEvent, waitFor } from '@testing-library/react'
 import { User } from '../../src/model/Model';
 import history from '../../src/utils/history';
