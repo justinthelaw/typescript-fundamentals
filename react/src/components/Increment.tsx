@@ -2,17 +2,18 @@ import React from "react";
 import "./Increment.css";
 
 interface CounterState {
-  appCounter: number;
+  cookieJar: number;
 }
 
 export default class Increment extends React.Component<{}, CounterState> {
   state: CounterState = {
-    appCounter: 1,
+    cookieJar: 1,
   };
 
+  // increments the numbe rof cookies in the jar
   private incrementCounter() {
     this.setState({
-      appCounter: this.state.appCounter + 1,
+      cookieJar: this.state.cookieJar + 1,
     });
   }
 
@@ -22,10 +23,10 @@ export default class Increment extends React.Component<{}, CounterState> {
         <button onClick={() => this.incrementCounter()}>Add a Cookie!</button>
         <div>
           <h5>
-            {this.state.appCounter}{" "}
-            {this.state.appCounter > 1 ? "Cookies" : "Cookie"}
+            {this.state.cookieJar}
+            {this.state.cookieJar > 1 ? " Cookies" : " Cookie"}
           </h5>
-          {Array.from(Array(this.state.appCounter), (_, i) => {
+          {Array.from(Array(this.state.cookieJar), (_, i) => {
             return <React.Fragment key={i}>🍪</React.Fragment>;
           })}
         </div>
