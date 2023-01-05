@@ -1,10 +1,6 @@
-## Sandbox
+## React
 
 Contains random components for learning and having fun with React, TypeScript, and Jest
-
-## Example
-
-Contains the code from a Digital University course for learning React, TypeScript, and Jest fundamentals
 
 ## Usage
 
