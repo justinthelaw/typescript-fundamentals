@@ -21,7 +21,9 @@ export default class Increment extends React.Component<{}, CounterState> {
   render() {
     return (
       <div>
-        <button onClick={() => this.incrementCounter()}>{COOKIE_BUTTON_NAME}</button>
+        <button onClick={() => this.incrementCounter()}>
+          {COOKIE_BUTTON_NAME}
+        </button>
         <div>
           <h5>
             {this.state.cookieJar}
