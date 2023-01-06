@@ -1,5 +1,6 @@
 import React from "react";
 import "./Increment.css";
+import { COOKIE_BUTTON_NAME } from "../constants/constants";
 
 interface CounterState {
   cookieJar: number;
@@ -20,7 +21,7 @@ export default class Increment extends React.Component<{}, CounterState> {
   render() {
     return (
       <div>
-        <button onClick={() => this.incrementCounter()}>Add a Cookie!</button>
+        <button onClick={() => this.incrementCounter()}>{COOKIE_BUTTON_NAME}</button>
         <div>
           <h5>
             {this.state.cookieJar}

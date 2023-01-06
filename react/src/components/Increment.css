@@ -16,3 +16,8 @@ button {
   -webkit-user-select: none;
   touch-action: manipulation;
 }
+
+button:active {
+  background-color: #ffe3c4;
+  box-shadow: #42280018 4px 4px 0 0;
+}
