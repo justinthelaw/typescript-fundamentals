@@ -12,10 +12,20 @@ export default class Increment extends React.Component<{}, CounterState> {
   };
 
   // increments the numbe rof cookies in the jar
-  private incrementCounter() {
+  private incrementCounter(): void {
     this.setState({
       cookieJar: this.state.cookieJar + 1,
     });
+    return;
+  }
+
+  // prints the correct number of cookies
+  private printCookies(): string {
+    let jar: string = "";
+    Array.from(Array(this.state.cookieJar), (_, i) => {
+      return (jar += "🍪");
+    });
+    return jar;
   }
 
   render() {
@@ -29,9 +39,7 @@ export default class Increment extends React.Component<{}, CounterState> {
             {this.state.cookieJar}
             {this.state.cookieJar > 1 ? " Cookies" : " Cookie"}
           </h5>
-          {Array.from(Array(this.state.cookieJar), (_, i) => {
-            return <React.Fragment key={i}>🍪</React.Fragment>;
-          })}
+          <p>{this.printCookies()}</p>
         </div>
       </div>
     );
