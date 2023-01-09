@@ -3,7 +3,7 @@ import Increment from "./Increment";
 import App from "./App";
 import { COOKIE_BUTTON_NAME, DEFAULT_NAME } from "../constants/constants";
 import userEvent from "@testing-library/user-event";
-import { getCookie } from "../helpers/cookieFuncs";
+// import { getCookie } from "../helpers/cookieFuncs";
 
 // helper functions for this test file
 // generates a random number of clicks between 1-100
@@ -11,6 +11,20 @@ function randomClicks(): number {
   let clicks: number = 10;
   clicks = Math.floor(clicks * Math.random());
   return clicks;
+}
+
+// generates clicks for cookies
+function addCookiesClicks(): number {
+  // gets button using expected button text
+  const buttonElement: HTMLElement = screen.getByRole("button", {
+    name: COOKIE_BUTTON_NAME,
+  });
+  // clicks button a random "X" number of times
+  let numberOfClicks: number = randomClicks();
+  for (let i: number = 0; i < numberOfClicks; i++) {
+    userEvent.click(buttonElement);
+  }
+  return numberOfClicks;
 }
 
 // tests begin
@@ -43,15 +57,7 @@ test("renders button to add a cookie", () => {
 
 test("pressing cookie button X number of times changes cookie message", () => {
   render(<Increment username={DEFAULT_NAME} />);
-  // gets button using expected button text
-  const buttonElement: HTMLElement = screen.getByRole("button", {
-    name: COOKIE_BUTTON_NAME,
-  });
-  // clicks button a random "X" number of times
-  let numberOfClicks: number = randomClicks();
-  for (let i: number = 0; i < numberOfClicks; i++) {
-    userEvent.click(buttonElement);
-  }
+  const numberOfClicks: number = addCookiesClicks();
   // gets message state
   const message: string = screen.getByText(
     /\b([0-9]|[1-9][0-9]|100)\b Cookie/
@@ -63,18 +69,9 @@ test("pressing cookie button X number of times changes cookie message", () => {
 
 test("pressing cookie button X number of times changes number of cookies on screen", () => {
   render(<Increment username={DEFAULT_NAME} />);
-  // gets button using expected button text
-  const buttonElement: HTMLElement = screen.getByRole("button", {
-    name: COOKIE_BUTTON_NAME,
-  });
-  // clicks button a random "X" number of times
-  let numberOfClicks: number = randomClicks();
-  for (let i: number = 0; i < numberOfClicks; i++) {
-    userEvent.click(buttonElement);
-  }
+  const numberOfClicks: number = addCookiesClicks();
   // gets all cookies
   const cookiesInTheJar: string = screen.getByText(/🍪/i).innerHTML;
   // cookie emoji is length of 2
   expect(cookiesInTheJar.length / 2).toEqual(numberOfClicks);
 });
-
