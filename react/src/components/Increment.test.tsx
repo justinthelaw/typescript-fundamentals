@@ -3,9 +3,33 @@ import Increment from "./Increment";
 import App from "./App";
 import { COOKIE_BUTTON_NAME, DEFAULT_NAME } from "../constants/constants";
 import userEvent from "@testing-library/user-event";
+import { getCookie } from "../helpers/cookieFuncs";
 
+// helper functions for this test file
+// generates a random number of clicks between 1-100
+function randomClicks(): number {
+  let clicks: number = 10;
+  clicks = Math.floor(clicks * Math.random());
+  return clicks;
+}
+
+// tests begin
 test("renders Increment", () => {
   render(<Increment username={DEFAULT_NAME} />);
+});
+
+test("changing name in App changes the Increment message name", () => {
+  render(<App />);
+  // mock a new change state
+  const newUserNameState: string = "New User";
+  const input: HTMLElement = screen.getByRole("textbox");
+  userEvent.clear(input);
+  userEvent.type(input, newUserNameState);
+  // gets the message by text
+  const messageElement: string = screen.getByText(`${newUserNameState} has`, {
+    exact: false,
+  }).innerHTML;
+  expect(messageElement).toBeTruthy();
 });
 
 test("renders button to add a cookie", () => {
@@ -17,13 +41,6 @@ test("renders button to add a cookie", () => {
   expect(buttonElement).toBeTruthy();
 });
 
-// generates a random number of clicks between 1-100
-function randomClicks(): number {
-  let clicks: number = 10;
-  clicks = Math.floor(clicks * Math.random());
-  return clicks;
-}
-
 test("pressing cookie button X number of times changes cookie message", () => {
   render(<Increment username={DEFAULT_NAME} />);
   // gets button using expected button text
@@ -32,7 +49,7 @@ test("pressing cookie button X number of times changes cookie message", () => {
   });
   // clicks button a random "X" number of times
   let numberOfClicks: number = randomClicks();
-  for (let i: number = 1; i < numberOfClicks; i++) {
+  for (let i: number = 0; i < numberOfClicks; i++) {
     userEvent.click(buttonElement);
   }
   // gets message state
@@ -52,7 +69,7 @@ test("pressing cookie button X number of times changes number of cookies on scre
   });
   // clicks button a random "X" number of times
   let numberOfClicks: number = randomClicks();
-  for (let i: number = 1; i < numberOfClicks; i++) {
+  for (let i: number = 0; i < numberOfClicks; i++) {
     userEvent.click(buttonElement);
   }
   // gets all cookies
@@ -61,19 +78,3 @@ test("pressing cookie button X number of times changes number of cookies on scre
   expect(cookiesInTheJar.length / 2).toEqual(numberOfClicks);
 });
 
-test("changing name in App changes the Increment message name", () => {
-  render(<App />);
-  // mock a new change state
-  const newUserNameState: string = "New User";
-  const input: HTMLElement = screen.getByRole("textbox");
-  userEvent.clear(input);
-  userEvent.type(input, newUserNameState);
-  // gets the message by text
-  const messageElement: string = screen.getByText(
-    `${newUserNameState} has`,
-    {
-      exact: false,
-    }
-  ).innerHTML;
-  expect(messageElement).toBeTruthy();
-});

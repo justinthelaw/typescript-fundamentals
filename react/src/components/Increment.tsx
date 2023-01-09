@@ -4,6 +4,7 @@ import {
   COOKIE_BUTTON_NAME,
   COOKIE_EAT_BUTTON_NAME,
 } from "../constants/constants";
+import { getCookie } from "../helpers/cookieFuncs";
 
 interface CounterState {
   cookieJar: number;
@@ -15,7 +16,7 @@ export default class Increment extends React.Component<
   CounterState
 > {
   state: CounterState = {
-    cookieJar: 1,
+    cookieJar: parseInt(getCookie("cookieJar")) || 0,
     username: this.props.username,
   };
 
@@ -28,26 +29,10 @@ export default class Increment extends React.Component<
     }
   }
 
-  private getCookie(cookieName: string): string {
-    let name = cookieName + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(";");
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === " ") {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-
   componentDidMount(): void {
     // grab existing cookies in browser
     this.setState({
-      cookieJar: parseInt(this.getCookie("cookieJar")),
+      cookieJar: this.determineBrowserCookies(),
     });
   }
 
@@ -72,10 +57,16 @@ export default class Increment extends React.Component<
   // prints the correct number of cookies
   private printCookies(): string {
     let jar: string = "";
-    Array.from(Array(this.state.cookieJar), () => {
-      return (jar += "🍪");
-    });
+    if (this.state.cookieJar > 0) {
+      Array.from(Array(this.state.cookieJar), () => {
+        return (jar += "🍪");
+      });
+    }
     return jar;
+  }
+
+  private determineBrowserCookies(): number {
+    return parseInt(getCookie("cookieJar")) || 0;
   }
 
   render() {
@@ -89,12 +80,18 @@ export default class Increment extends React.Component<
           <h5>
             {this.state.username + " has "}
             {this.state.cookieJar}
-            {this.state.cookieJar > 1 ? " Cookies" : " Cookie"}
+            {this.state.cookieJar > 1 || this.state.cookieJar < 1
+              ? " Cookies"
+              : " Cookie"}
           </h5>
           <h5>
-            {this.state.username + " has "}
-            {this.getCookie("cookieJar")}
-            {parseInt(this.getCookie("cookieJar")) > 1
+            {this.determineBrowserCookies() > 1 ||
+            this.determineBrowserCookies() < 1
+              ? "There are "
+              : "There is "}
+            {getCookie("cookieJar")}
+            {this.determineBrowserCookies() > 1 ||
+            this.determineBrowserCookies() < 1
               ? " Browser Cookies"
               : " Browser Cookie"}
           </h5>
