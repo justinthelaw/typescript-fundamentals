@@ -20,7 +20,7 @@ function App() {
           />
         </label>
         <h5>Hello, {name}</h5>
-        <Increment />
+        <Increment username={name} />
       </header>
     </div>
   );
