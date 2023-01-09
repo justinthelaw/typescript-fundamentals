@@ -73,7 +73,7 @@ export default class Increment extends React.Component<
     return (
       <div>
         <button onClick={() => this.addCookie()}>{COOKIE_BUTTON_NAME}</button>
-        <button onClick={() => this.deleteCookies()}>
+        <button className="eatButton" onClick={() => this.deleteCookies()}>
           {COOKIE_EAT_BUTTON_NAME}
         </button>
         <div>

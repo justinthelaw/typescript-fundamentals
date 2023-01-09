@@ -3,7 +3,16 @@ import Increment from "./Increment";
 import App from "./App";
 import { COOKIE_BUTTON_NAME, DEFAULT_NAME } from "../constants/constants";
 import userEvent from "@testing-library/user-event";
-// import { getCookie } from "../helpers/cookieFuncs";
+import { getCookie, deleteAllCookies } from "../helpers/cookieFuncs";
+
+// clear document cookies after and before each test
+afterEach(() => {
+  deleteAllCookies();
+});
+
+beforeEach(() => {
+  deleteAllCookies();
+});
 
 // helper functions for this test file
 // generates a random number of clicks between 1-100
@@ -63,7 +72,7 @@ test("pressing cookie button X number of times changes cookie message", () => {
     /\b([0-9]|[1-9][0-9]|100)\b Cookie/
   ).innerHTML;
   // determines correct message
-  let pluralOrSingular: string = numberOfClicks > 1 ? "Cookies" : "Cookie";
+  const pluralOrSingular: string = numberOfClicks > 1 ? "Cookies" : "Cookie";
   expect(message).toContain(`${numberOfClicks} ${pluralOrSingular}`);
 });
 
@@ -71,7 +80,9 @@ test("pressing cookie button X number of times changes number of cookies on scre
   render(<Increment username={DEFAULT_NAME} />);
   const numberOfClicks: number = addCookiesClicks();
   // gets all cookies
-  const cookiesInTheJar: string = screen.getByText(/🍪/i).innerHTML;
+  const cookiesInTheJar: string = screen.getByText(/🍪/i, {
+    trim: true,
+  })?.innerHTML;
   // cookie emoji is length of 2
-  expect(cookiesInTheJar.length / 2).toEqual(numberOfClicks);
+  expect((cookiesInTheJar.length / 2)).toEqual(numberOfClicks);
 });

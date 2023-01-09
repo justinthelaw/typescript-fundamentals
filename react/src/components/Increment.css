@@ -1,5 +1,5 @@
 button {
-  background-color: #fbeee0;
+  background-color: #e7fbe0;
   border: 2px solid #422800;
   border-radius: 30px;
   box-shadow: #422800 4px 4px 0 0;
@@ -19,6 +19,14 @@ button {
 }
 
 button:active {
-  background-color: #ffe3c4;
+  background-color: #fff6c4;
   box-shadow: #42280018 4px 4px 0 0;
+}
+
+button:hover {
+  box-shadow: #42280018 0px 0px 0 0;
+}
+
+.eatButton {
+  background-color: #ffd2c4
 }
